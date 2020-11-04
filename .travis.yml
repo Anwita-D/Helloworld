@@ -9,27 +9,12 @@ cache:
 php:
   - 7.4
 
-env:
-  matrix:
-    - DB=pgsql DB_URL='postgres://postgres@127.0.0.1/mw_app_test'
-
-before_script:
-  - if [[ $DB == 'pgsql' ]]; then psql -c 'CREATE DATABASE mw_app_test;' -U postgres; fi
-
 before_install:
 
   - |
     if [[ $TRAVIS_PHP_VERSION == '7.4' ]]; then
       pecl channel-update pecl.php.net
       pecl install pcov
-    fi
-  - |
-    if [[ $TRAVIS_PHP_VERSION != 'nightly' ]]; then
-      phpenv config-rm xdebug.ini
-      echo 'extension = memcached.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-      echo 'extension = redis.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-      echo 'extension = apcu.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-      echo 'apc.enable_cli = 1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     fi
   - sudo locale-gen en_GB.UTF-8
 
