@@ -1,4 +1,4 @@
-clanguage: php
+language: php
 
 dist: xenial
 
